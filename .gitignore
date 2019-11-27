@@ -1,0 +1,10 @@
+*.pyc
+*.bak
+
+# Text editors often create these
+~.*
+*~
+
+# Files created by PyInstaller
+build/
+dist/
