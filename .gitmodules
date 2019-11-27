@@ -1,0 +1,4 @@
+[submodule "cockpit"]
+	path = cockpit
+	url = https://github.com/MicronOxford/cockpit.git
+	branch = master
