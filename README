@@ -1,1 +1,18 @@
 Rules to create Cockpit installers for Windows.
+
+This repository makes use of submodules.  After cloning, the
+submodules need to be initialised and updated:
+
+    $ git submodule init
+    $ git submodule update
+
+To build an installer:
+
+    $ pip install \
+        --no-index \
+        --install-option="--install-lib=$(pwd)/installed/lib" \
+        --install-option="--install-scripts=$(pwd)/installed/scripts" \
+        cockpit/
+
+    $ pyinstaller cockpit.spec
+    $ SetupInno cockpit.iss

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (C) 2019 David Miguel Susano Pinto <david.pinto@bioch.ox.ac.uk>
+# Copyright (C) 2021 David Miguel Susano Pinto <david.pinto@bioch.ox.ac.uk>
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -25,20 +25,24 @@ cockpit_pkg_path = 'cockpit'
 # able to find the cockpit package.
 sys.path.append(cockpit_pkg_path)
 
-# The import of cockpit.devices and cockpit.handlers modules is
-# configuration dependent so they need to be added "manually".  We
-# just add all cockpit modules.
+# The import of cockpit.devices is configuration dependent and the
+# import of many cockpit.gui modules happens with importlib.  We also
+# may want to have other cockpit modules available only for when using
+# the Python shell from cockpit.  Because of this we need to add them
+# manually.
 hidden_imports = [m.name for m in pkgutil.walk_packages([cockpit_pkg_path])]
 
 resources = PyInstaller.utils.hooks.collect_data_files('cockpit',
                                                        subdir='resources')
 
+cdll = []
+
 # The script is named 'cockpit_main.py' because otherwise 'import
 # cockpit' will import itself rather than the cockpit package.
 a = Analysis(['cockpit_main.py'],
              pathex=[cockpit_pkg_path],
-             binaries=resources,
-             datas=[],
+             binaries=cdll,
+             datas=resources,
              hiddenimports=hidden_imports,
              hookspath=[],
              runtime_hooks=[],
