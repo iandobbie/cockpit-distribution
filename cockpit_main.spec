@@ -73,5 +73,5 @@ coll = COLLECT(exe,
                name='cockpit_main')
 app = BUNDLE(coll,
              name='cockpit_main.app',
-             icon='cockpit/cockpit/resources/bitmaps/cockpit.icns',
+             icon='cockpit.icns',
              bundle_identifier='com.micronoxford')
