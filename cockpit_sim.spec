@@ -33,7 +33,7 @@ hidden_imports = [m.name for m in pkgutil.walk_packages([cockpit_pkg_path])]
 
 resources = PyInstaller.utils.hooks.collect_data_files('cockpit',
                                                        subdir='resources')
-resources.append(('david-sim.depot','cockpit'))
+resources.append(('cockpit_sim.depot','cockpit'))
 resources.append(('merged-zaber-rgb.tif','cockpit'))
 
 cdll = []
@@ -42,7 +42,7 @@ cdll = []
 # cockpit' will import itself rather than the cockpit package.
 
 
-a = Analysis(['david-sim.py'],
+a = Analysis(['cockpit_sim.py'],
              pathex=[cockpit_pkg_path],
              binaries=cdll,
              datas=resources,

@@ -23,7 +23,7 @@ TIMEOUT = 10  # seconds
 JOIN_TIMEOUT = 5  # seconds
 
 SIMULATION_IMAGE_FILEPATH = 'merged-zaber-rgb.tif'
-DEPOT_FILEPATH = 'david-sim.depot'
+DEPOT_FILEPATH = 'cockpit_sim.depot'
 
 
 
@@ -42,6 +42,7 @@ def resource_path(relative_path):
 #start microscope device server with correct config.
 
 def start_device_server(exit_event: multiprocessing.Event) -> None:
+    print(resource_path(SIMULATION_IMAGE_FILEPATH))
     device_server_process = DeviceServer(
         device(
             simulated_setup_from_image,
