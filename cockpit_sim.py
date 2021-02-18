@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 import multiprocessing
+#hack needed to stop inifinite spawning on MacOS once frozen
+multiprocessing.freeze_support()
+
 import time
 import os
 
@@ -77,9 +80,8 @@ def start_device_server(exit_event: multiprocessing.Event) -> None:
 
     return device_server_process
 
+def main():
 
-if __name__ == "__main__":
-    multiprocessing.freeze_support()
 
     exit_event = multiprocessing.Event()
     device_server_process = start_device_server(exit_event)
@@ -95,4 +97,6 @@ if __name__ == "__main__":
     if device_server_process.exitcode is None:  # join timedout
         device_server_process.kill()
 
+if __name__ == "__main__":
+    main()
 
