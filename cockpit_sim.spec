@@ -35,6 +35,8 @@ resources = PyInstaller.utils.hooks.collect_data_files('cockpit',
                                                        subdir='resources')
 resources.append(('cockpit_sim.depot','cockpit'))
 resources.append(('merged-zaber-rgb.tif','cockpit'))
+resources.append(('cockpit_sim.config','cockpit'))
+resources.append(('channels-cockpit_sim','cockpit'))
 
 cdll = []
 
