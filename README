@@ -16,3 +16,27 @@ To build an installer:
 
     $ pyinstaller cockpit.spec
     $ SetupInno cockpit.iss
+
+For Mac I had to edit the openGL ctypes importer to get it to properly
+pick up the dll's needed. I got this hint form
+https://github.com/PixarAnimationStudios/USD/issues/1372
+
+I edited line 79 of:
+
+/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/PyOpenGL-3.1.5-py3.8.egg/OpenGL/platform/ctypesloader.py
+
+to be:
+
+  	     fullName = '/System/Library/Frameworks/OpenGL.framework/OpenGL'
+
+
+Then run:
+
+pyinstaller cockpit_main.spec
+
+This created a working file in dist/cockpit_main.app . To add an icon
+to the app select the file in finder find the cockpit.icns select this
+file and copy with command-c. Next find the app directory
+cockpit_main.app and open its info window with command-i. Finally,
+click on the icon in the top left hand corner of the info window and
+paste the icon with command-v.
