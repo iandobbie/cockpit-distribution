@@ -2,4 +2,4 @@
 
 import sys
 import cockpit
-sys.exit(cockpit.main())
+sys.exit(cockpit.main(['cockpit']))

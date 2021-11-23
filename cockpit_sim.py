@@ -9,7 +9,7 @@ import os
 
 import Pyro4
 
-from microscope.device_server import device, DeviceServer
+from microscope.device_server import device, DeviceServer, DeviceServerOptions
 from microscope.simulators.stage_aware_camera import simulated_setup_from_image
 import cockpit
 
@@ -55,6 +55,7 @@ def start_device_server(exit_event: multiprocessing.Event) -> None:
             DEVICE_SERVER_PORT,
             conf={"filepath": resource_path(SIMULATION_IMAGE_FILEPATH)},
         ),
+        options=DeviceServerOptions(config_fpath="",logging_level= 1),
         id_to_host={},
         id_to_port={},
         exit_event=exit_event,
