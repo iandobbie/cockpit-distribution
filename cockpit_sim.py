@@ -12,6 +12,7 @@ import Pyro4
 from microscope.device_server import device, DeviceServer, DeviceServerOptions
 from microscope.simulators.stage_aware_camera import simulated_setup_from_image
 import cockpit
+import logging
 
 multiprocessing = multiprocessing.get_context("spawn")
 
@@ -22,10 +23,10 @@ Pyro4.config.SERIALIZER = "pickle"
 
 DEVICE_SERVER_PORT = 8000
 
-TIMEOUT = 10  # seconds
-JOIN_TIMEOUT = 5  # seconds
+TIMEOUT = 20  # seconds
+JOIN_TIMEOUT = 10  # seconds
 
-SIMULATION_IMAGE_FILEPATH = 'merged-zaber-rgb.tif'
+SIMULATION_IMAGE_FILEPATH = 'merged-zaber-rgb.jpg'
 DEPOT_FILEPATH = 'cockpit_sim.depot'
 CONFIG_FILEPATH = 'cockpit_sim.config'
 CHANNELS_FILEPATH = 'channels-cockpit_sim'
@@ -47,7 +48,7 @@ def resource_path(relative_path):
 #start microscope device server with correct config.
 
 def start_device_server(exit_event: multiprocessing.Event) -> None:
-    print(resource_path(SIMULATION_IMAGE_FILEPATH))
+   # print(resource_path(SIMULATION_IMAGE_FILEPATH))
     device_server_process = DeviceServer(
         device(
             simulated_setup_from_image,
@@ -55,7 +56,8 @@ def start_device_server(exit_event: multiprocessing.Event) -> None:
             DEVICE_SERVER_PORT,
             conf={"filepath": resource_path(SIMULATION_IMAGE_FILEPATH)},
         ),
-        options=DeviceServerOptions(config_fpath="",logging_level= 1),
+        options=DeviceServerOptions(config_fpath="",
+                                    logging_level= logging.WARNING),
         id_to_host={},
         id_to_port={},
         exit_event=exit_event,
@@ -74,12 +76,12 @@ def start_device_server(exit_event: multiprocessing.Event) -> None:
         else:
             return True
 
- #   start_time = time.time()
- #   while (not _device_server_is_ready()
- #          and time.time() < start_time + TIMEOUT):
- #       time.sleep(1)
- #   if not _device_server_is_ready():
- #       raise RuntimeError("Failed to start the device server")
+    start_time = time.time()
+    while (not _device_server_is_ready()
+           and time.time() < start_time + TIMEOUT):
+        time.sleep(1)
+    if not _device_server_is_ready():
+        raise RuntimeError("Failed to start the device server")
 
     return device_server_process
 
