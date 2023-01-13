@@ -34,7 +34,7 @@ hidden_imports = [m.name for m in pkgutil.walk_packages([cockpit_pkg_path])]
 resources = PyInstaller.utils.hooks.collect_data_files('cockpit',
                                                        subdir='resources')
 resources.append(('cockpit_sim.depot','cockpit'))
-resources.append(('merged-zaber-rgb.tif','cockpit'))
+resources.append(('merged-zaber-rgb.jpg','cockpit'))
 resources.append(('cockpit_sim.config','cockpit'))
 resources.append(('channels-cockpit_sim','cockpit'))
 
@@ -72,6 +72,7 @@ coll = COLLECT(exe,
                a.zipfiles,
                a.datas,
                strip=False,
+               debug=True,
                upx=True,
                upx_exclude=[],
                name='cockpit_sim')
