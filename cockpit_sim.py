@@ -6,6 +6,7 @@ multiprocessing.freeze_support()
 
 import time
 import os
+import sys
 
 import Pyro4
 
@@ -57,7 +58,8 @@ def start_device_server(exit_event: multiprocessing.Event) -> None:
             conf={"filepath": resource_path(SIMULATION_IMAGE_FILEPATH)},
         ),
         options=DeviceServerOptions(config_fpath="",
-                                    logging_level= logging.WARNING),
+                                    logging_level= logging.WARNING,
+                                    logging_dir=os.path.join(os.path.dirname(sys.argv[0]))),
         id_to_host={},
         id_to_port={},
         exit_event=exit_event,
