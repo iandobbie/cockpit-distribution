@@ -14,6 +14,7 @@ from microscope.device_server import device, DeviceServer, DeviceServerOptions
 from microscope.simulators.stage_aware_camera import simulated_setup_from_image
 import cockpit
 import logging
+import microscope
 
 multiprocessing = multiprocessing.get_context("spawn")
 
