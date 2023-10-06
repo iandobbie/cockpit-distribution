@@ -98,6 +98,7 @@ def main():
     configFile.write('[global]\n')
     configFile.write('channel-files: '+resource_path(CHANNELS_FILEPATH)+'\n')
     configFile.close()
+    print("starting cockpit")
     cockpit.main([
         "cockpit",
         "--depot-file",
@@ -106,7 +107,9 @@ def main():
         resource_path(CONFIG_FILEPATH),
     ])
 
+    print("closed cockpit")
     exit_event.set()
+
     device_server_process.join(JOIN_TIMEOUT)
     if device_server_process.exitcode is None:  # join timedout
         device_server_process.kill()

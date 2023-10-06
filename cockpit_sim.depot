@@ -17,7 +17,7 @@ cameras: camera
 filters:
   0, Blue, 460
   1, Green, 510
-  2, Red, 620
+  2, Red, 680
 
 [stage]
 type: cockpit.devices.microscopeDevice.MicroscopeStage

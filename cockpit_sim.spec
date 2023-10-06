@@ -17,19 +17,21 @@ import PyInstaller.utils.hooks
 # Location where the cockpit package is, so the location of the
 # cockpit repository.
 cockpit_pkg_path = 'cockpit'
+microscope_pkg_path = 'microscope'
 
 # We manually modify sys.path instead of using the Analysis' pathex
 # argument because the PyInstaller hooks that we use to collect
 # submodules and data files are called first and they also need to be
 # able to find the cockpit package.
 sys.path.append(cockpit_pkg_path)
+sys.path.append(microscope_pkg_path)
 
 # The import of cockpit.devices is configuration dependent and the
 # import of many cockpit.gui modules happens with importlib.  We also
 # may want to have other cockpit modules available only for when using
 # the Python shell from cockpit.  Because of this we need to add them
 # manually.
-hidden_imports = [m.name for m in pkgutil.walk_packages([cockpit_pkg_path])]
+hidden_imports = [m.name for m in pkgutil.walk_packages([cockpit_pkg_path,microscope_pkg_path])]
 
 resources = PyInstaller.utils.hooks.collect_data_files('cockpit',
                                                        subdir='resources')
