@@ -68,7 +68,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False , icon='cockpit/cockpit/resources/bitmaps/cockpit.ico')
+          console=False , icon='cockpit.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
